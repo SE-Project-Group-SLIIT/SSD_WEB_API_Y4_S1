@@ -5,6 +5,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const app = express();
 
+//Routes
+const employee = require('./routes/employeeRoute');
+
 // Loading environment variables
 dotenv.config();
 
@@ -30,7 +33,7 @@ connection.once("open", () => {
 });
 
 // use routes (if applicable)
-
+app.use('/employee',employee);
 
 // Start the server
 app.listen(PORT, () => {
