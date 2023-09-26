@@ -1,54 +1,67 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const EmployeeSchema = new Schema({
-    Name : {
-        type : String,
-        required : true 
-    },
-    Address : {
-        type : String,
-        required : true
-    },
-    NIC : {
-        type : String,
-        required : true 
-    },
-    DOB : {
-        type : String,
-        required : true 
-    },
-    Phone : {
-        type : String,
-        required : true 
-    },
-    Email : {
-        type : String,
-        required : true 
-    },
-    Gender : {
-        type : String,
-        required : true 
-    },
-    JoiningDate : {
-        type : String,
-        required : true 
-    },
-    Designation : {
-        type : String,
-        required : true 
-    },
-    // Photo : {
-    //     type : File,
-    //     required : true 
-    // },
-    // CV : {
-    //     type : File,
-    //     required : true 
-    // }
-})
+const EmployeeManagementSchema = new Schema(
+	{
+		firstName: {
+			type: String,
+			maxlength: 10,
+			minLength: 2,
+			required: true,
+		},
+		lastName: {
+			type: String,
+			maxlength: 10,
+			minLength: 2,
+			required: true,
+		},
+		address: {
+			type: String,
+			required: true,
+		},
+		nic: {
+			type: String,
+			required: true,
+		},
+		dateOfBirth: {
+			type: Date,
+			required: true,
+		},
+		phoneNumber: {
+			type: Number,
+			required: true,
+		},
+		emailAddress: {
+			type: String,
+			required: true,
+		},
+		gender: {
+			type: String,
+			required: true,
+		},
+		joiningDate: {
+			type: Date,
+			required: true,
+		},
+		designation: {
+			type: String,
+			required: true,
+		},
+		isActive: {
+			type: Boolean,
+			default: true,
+		},
+		// isEmployee: {
+		// 	type: Boolean,
+		// 	default: true,
+		// },
+	},
+	{ timestamps: true },
+);
 
-const Employee = mongoose.model( "Employee",EmployeeSchema);
-
-module.exports = Employee;
+//export model
+module.exports = mongoose.model(
+	"EmployeeManagement",
+	EmployeeManagementSchema,
+);

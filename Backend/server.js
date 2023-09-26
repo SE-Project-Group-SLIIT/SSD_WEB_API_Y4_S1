@@ -2,14 +2,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const path = require("path");
 const app = express();
 
 //Routes
-const employee = require('./routes/employeeRoute');
+const employee = require("./routes/employeeRoute");
 
 // Loading environment variables
-dotenv.config();
+require("dotenv").config({
+	path: path.resolve(__dirname, "./config/.env"),
+});
 
 // Constants
 const PORT = process.env.PORT || 8070;
@@ -21,21 +23,21 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
 });
 
 const connection = mongoose.connection;
 
 // Event listener for successful MongoDB connection
 connection.once("open", () => {
-  console.log("MongoDB connection successful!");
+	console.log("MongoDB connection successful!");
 });
 
 // use routes (if applicable)
-app.use('/employee',employee);
+app.use("/employee", employee);
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+	console.log(`Server is running on port ${PORT}`);
 });
