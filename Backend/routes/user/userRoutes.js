@@ -2,9 +2,12 @@ module.exports = function (router, passport) {
     var bodyParser = require('body-parser');
     var jsonParser = bodyParser.json();
     const userController = require('../../controllers/userController');
+    const validationsMiddleware = require('../../validators/commonValidatorsjoi');
+    const userValidationSchema = require('../../validators/validationJoiSchemas/userValidationSchema');
 
-    //get all company details
-    router.get('/save_user_details', jsonParser,
+    //add user details
+    router.post('/save_user_details', jsonParser,
+        validationsMiddleware(userValidationSchema.saveUserDetails, 'body'),
         // passport.authenticate('jwt', {
         // 	session: false
         // }),
