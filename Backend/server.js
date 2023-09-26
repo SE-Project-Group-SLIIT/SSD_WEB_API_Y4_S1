@@ -7,6 +7,7 @@ const app = express();
 
 //Routes
 const employee = require("./routes/employeeRoute");
+var appController = require('./app');
 
 // Loading environment variables
 require("dotenv").config({
@@ -36,6 +37,7 @@ connection.once("open", () => {
 
 // use routes (if applicable)
 app.use("/employee", employee);
+app.use("/api", appController);
 
 // Start the server
 app.listen(PORT, () => {
