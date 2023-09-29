@@ -6,7 +6,12 @@ const userValidationSchema = {
 		nic: Joi.string().max(12).required(),
 		email: Joi.string().email().required(),
 		role: Joi.string().min(2).max(20).required(),
-		isActive: Joi.boolean()
+		isActive: Joi.boolean(),
+		password: Joi.string()
+	}),
+	signInDetails: Joi.object().keys({
+		email: Joi.string().email().required(),
+		password: Joi.string()
 	}),
 };
 
