@@ -14,4 +14,10 @@ module.exports = function (router, passport) {
         userController.addUserDetails
     );
 
+    //add user details
+    router.post('/signin', jsonParser,
+        validationsMiddleware(userValidationSchema.signInDetails, 'body'),
+        userController.signin
+    );
+
 };
