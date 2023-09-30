@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
-const employeeManagementValidation = (data) => {
-	const schemaValidation = Joi.object({
+const employeeManagementValidation = {
+	schemaValidation: Joi.object().keys({
 		firstName: Joi.string()
 			.alphanum()
 			.min(2)
@@ -21,10 +21,8 @@ const employeeManagementValidation = (data) => {
 		joiningDate: Joi.date().required(),
 		designation: Joi.string().min(2).max(20).required(),
 		isActive: Joi.boolean(),
-	});
-
-	return schemaValidation.validate(data);
+	}),
 };
 
 //export validations
-module.exports.employeeManagementValidation = employeeManagementValidation;
+module.exports = employeeManagementValidation;

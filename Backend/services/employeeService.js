@@ -1,5 +1,3 @@
-const { response } = require("express");
-const mongoose = require("mongoose");
 const Employee = require("../models/Employee");
 
 //create service for add employee details
@@ -33,7 +31,6 @@ module.exports.addEmployeeService = async (req, res) => {
 		});
 
 		const response = await newEmployee.save();
-
 		return {
 			msg: "Employee Added",
 			data: response,
@@ -70,10 +67,8 @@ module.exports.viewAllEmployeeService = async (req, res) => {
 
 module.exports.updateEmployeeService = async (req, res) => {
 	try {
-		let id = req.id;
+		let id = req.params.id;
 		let idString = id.toString();
-
-		// destructure
 		const {
 			firstName,
 			lastName,
@@ -105,7 +100,6 @@ module.exports.updateEmployeeService = async (req, res) => {
 			{ _id: idString },
 			updateUser,
 		);
-
 		if (response) {
 			return {
 				msg: "success",
@@ -124,30 +118,9 @@ module.exports.updateEmployeeService = async (req, res) => {
 
 //create service for delete employee details
 
-// module.exports.deleteEmployeeService = async (req, res) => {
-// 	try {
-// 		const id = req._id;
-// 		let response = await Employee.findOneAndDelete({ _id: id });
-
-// 		if (response) {
-// 			return {
-// 				msg: "success",
-// 				data: response,
-// 			};
-// 		} else {
-// 			return {
-// 				msg: "fail",
-// 				data: null,
-// 			};
-// 		}
-// 	} catch (err) {
-// 		throw err;
-// 	}
-// };
-
 module.exports.deleteEmployeeService = async (req, res) => {
 	try {
-		const id = req.id;
+		const id = req.params.id;
 		const idString = id.toString();
 
 		// Update the isActive field to false and return the updated employee
@@ -177,8 +150,9 @@ module.exports.deleteEmployeeService = async (req, res) => {
 
 module.exports.singleEmployeeViewService = async (req, res) => {
 	try {
-		const id = req.id;
-		let response = await Employee.findOne({ _id: id });
+		const id = req.params.id;
+		const idString = id.toString();
+		let response = await Employee.findOne({ _id: idString });
 
 		if (response) {
 			return {
