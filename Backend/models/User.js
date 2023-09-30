@@ -25,17 +25,23 @@ const UserSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		role: {
-			type: String,
-			required: true,
-		},
 		isActive: {
 			type: Boolean,
 			default: true,
 		},
 		password: {
 			type: String
+		},
+		permissions: {
+			role: {
+				type: Number,
+			},
+			access_levels: {
+				type: [String], // Array of strings representing permissions
+				default: [],    // Default to an empty array
+			},
 		}
+	
 	},
 	{ timestamps: true },
 );
