@@ -5,10 +5,8 @@ const cors = require("cors");
 const path = require("path");
 const app = express();
 
-
-const employee = require("./routes/employeeRoute"); //need to remove
 //Routes
-var appController = require('./app');
+var appController = require("./app");
 
 // Loading environment variables
 require("dotenv").config({
@@ -37,7 +35,6 @@ connection.once("open", () => {
 });
 
 // use routes (if applicable) appController
-app.use("/employee", employee); //need to remove
 app.use("/api", appController);
 
 // Start the server
