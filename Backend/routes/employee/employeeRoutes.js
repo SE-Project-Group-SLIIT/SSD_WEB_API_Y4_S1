@@ -3,7 +3,7 @@ module.exports = function (router, passport) {
 	var jsonParser = bodyParser.json();
 	const employeeController = require("../../controllers/employeeController");
 	const validationsMiddleware = require("../../validators/commonValidatorsjoi");
-	const employeeManagementValidation = require("../../validators/employeeValidation");
+	const employeeManagementValidation = require("../../validators/validationJoiSchemas/employeeValidation");
 
 	//add employee details route
 	router.post(
@@ -32,45 +32,67 @@ module.exports = function (router, passport) {
 	//update employee details route
 
 	router.put(
-		"/update_employee/:id",
+		"/update_employee",
 		jsonParser,
+		validationsMiddleware(
+			employeeManagementValidation.updateSchemaValidation,
+			"body",
+		),
 		passport.authenticate("jwt", {
 			session: false,
 		}),
-		(req, res) => {
-			// Extract the id from the query parameters
-			const id = req.params.id;
-			employeeController.updateEmployeeController(req, res, id);
-		},
+		// (req, res) => {
+		// 	// Extract the id from the query parameters
+		// 	const id = req.params.id;
+			employeeController.updateEmployeeController,
+		// },
 	);
 
 	//inactive employee details route
 
 	router.put(
-		"/inactive_employee/:id",
+		"/inactive_employee",
 		jsonParser,
 		passport.authenticate("jwt", {
 			session: false,
 		}),
-		(req, res) => {
+		// (req, res) => {
 			// Extract the id from the query parameters
-			const id = req.params.id;
-			employeeController.deleteEmployeeController(req, res, id);
-		},
+			// const id = req.params.id;
+			employeeController.deleteEmployeeController,
+		// },
 	);
 
 	//view single employee details route
 
 	router.get(
-		"/view/single_employee/:id",
+		"/view/single_employee",
 		jsonParser,
 		passport.authenticate("jwt", {
 			session: false,
 		}),
-		(req, res) => {
-			// Extract the id from the query parameters
-			const id = req.params.id;
-			employeeController.singleEmployeeViewController(req, res, id);
-		},
+		// (req, res) => {
+		// 	// Extract the id from the query parameters
+		// 	const id = req.params.id;
+			employeeController.singleEmployeeViewController,
+		// },
 	);
+
+	router.get(
+		"/get-inactive-employees",
+		jsonParser,
+		passport.authenticate("jwt", {
+		  session: false,
+		}),
+		employeeController.viewInactiveEmployeesController,
+	  );
+
+	  router.get(
+		"/get-active-employees",
+		jsonParser,
+		passport.authenticate("jwt", {
+		  session: false,
+		}),
+		employeeController.viewActiveEmployeesController,
+	  );
 };
