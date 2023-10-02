@@ -8,27 +8,27 @@ module.exports = function (router, passport) {
   
     // Check each request for authentication and permissions
     const permissionCheckMiddleware = (action_type) => {
-      return (req, res, next) => {
-        try {
-          if (req.user.status !== 'active') {
-            res.status(355).send(req.user.email);
-          } else {
-            let action_list = req.user.permissions.access_levels;
-            switch (action_type) {
-              case "vehicleManage":
-                action_list.includes("vehicleManage")
-                  ? next()
-                  : res.sendStatus(401);
-                break;
-              default:
-                res.sendStatus(401);
+        return (req, res, next) => {
+          try {
+            if (!req.user.isActive) {
+              res.status(355).send(req.user.email);
+            } else {
+              let action_list = req.user.permissions.access_levels;
+              switch (action_type) {
+                case "vehicleManage":
+                  action_list.includes("vehicleManage")
+                    ? next()
+                    : res.sendStatus(401);
+                  break;
+                default:
+                  res.sendStatus(401);
+              }
             }
+          } catch (err) {
+            res.sendStatus(401);
           }
-        } catch (err) {
-          res.sendStatus(401);
-        }
+        };
       };
-    };
   
     // Add vehicle details route
     router.post(

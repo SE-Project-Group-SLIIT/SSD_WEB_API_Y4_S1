@@ -5,6 +5,7 @@ module.exports.addVehicleService = async (requestData) => {
   try {
     const newVehicle = new Vehicle(requestData);
     const response = await newVehicle.save();
+    console.log("response",response);
     return {
       msg: "Vehicle Added",
       data: response,
@@ -30,6 +31,7 @@ module.exports.viewAllVehiclesService = async () => {
 // Create service for updating vehicle details
 module.exports.updateVehicleService = async (requestData) => {
   try {
+    console.log(">>>>Id",requestData);
     const id = requestData._id;
     const idString = id.toString();
     const response = await Vehicle.findByIdAndUpdate(

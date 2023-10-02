@@ -8,8 +8,10 @@ const {
 
 // Create controller for adding a new vehicle
 module.exports.addVehicleController = async (req, res) => {
+    console.log(">>>>",req.body);
   try {
     const vehicleResponse = await vehicleService.addVehicleService(req.body);
+    console.log(">>>>",req.body);
     return res.status(200).json({
       success: true,
       data: vehicleResponse.data,
@@ -42,6 +44,7 @@ module.exports.viewAllVehiclesController = async (req, res) => {
 
 // Create controller for updating vehicle details
 module.exports.updateVehicleController = async (req, res) => {
+    console.log(">>>>request",req);
   try {
     const vehicleResponse = await vehicleService.updateVehicleService(req.body);
     return res.status(200).json({

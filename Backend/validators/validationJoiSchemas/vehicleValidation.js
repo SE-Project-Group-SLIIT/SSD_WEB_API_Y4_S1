@@ -23,8 +23,9 @@ const vehicleValidation = {
     YearsRent: Joi.string().min(2).max(50).required(),
     status: Joi.string().valid("active", "removed").default("active"),
   }),
-  
+
   updateSchemaValidation: Joi.object().keys({
+    _id: Joi.string(),
     OwnerName: Joi.string().min(2).max(50).trim(),
     OwnerNIC: Joi.string().max(12),
     TeleNo: Joi.string().min(10).max(15),
