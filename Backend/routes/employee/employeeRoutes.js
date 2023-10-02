@@ -5,6 +5,29 @@ module.exports = function (router, passport) {
 	const validationsMiddleware = require("../../validators/commonValidatorsjoi");
 	const employeeManagementValidation = require("../../validators/employeeValidation");
 
+	//check each request for authenticate only customer accounts
+	const permissionCheckMiddleware = (action_type) => {
+		return (req, res, next) => {
+			try {
+				if (!req.user.isActive) {
+					res.status(355).send(req.user.email);
+				}
+				else {
+					const action_list = req.user.permissions.access_levels;
+					switch (action_type) {
+					case 'employeeManage':
+						action_list.include('employeeManage') ? next() : res.sendStatus(401);
+						break;
+					default:
+						res.sendStatus(401);
+					}
+				}
+			} catch (err) {
+				res.sendStatus(401);
+			}
+		};
+	};
+	
 	//add employee details route
 	router.post(
 		"/save_employee_details",

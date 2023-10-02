@@ -85,13 +85,15 @@ module.exports.signin = async (requestBody, requestUser) => {
 				},
 			);
 
+			const returnData = {
+				token: "JWT " + token,
+				isActive: signInUser.isActive,
+				userId: signInUser._id,
+				permissions: signInUser.permissions,
+			};
+
 			return {
-				data: {
-					token: "JWT " + token,
-					isActive: signInUser.isActive,
-					userId: signInUser._id,
-					permissions: signInUser.permissions,
-				},
+				data: returnData,
 				msg: "Login successful.",
 			};
 		} else {
