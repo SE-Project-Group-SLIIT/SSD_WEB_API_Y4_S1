@@ -182,3 +182,29 @@ module.exports.viewActiveEmployeesController = async (req, res) => {
 			});
 	}
 };
+
+//create controller for active employee details
+
+module.exports.activeEmployeeController = async (req, res) => {
+	try {
+		let employeeResponse = await employeeService.activeEmployeeService(
+			req.body,
+		);
+		return res.status(200).send({
+			success: true,
+			data: employeeResponse.data,
+			showMessage: false,
+		});
+	} catch (err) {
+		return res
+			.status(
+				err.status || ResponseStatusCodes.INTERNAL_SERVER_ERROR,
+			)
+			.json({
+				success: false,
+				msg:
+					err.msg ||
+					ResponseCommonMessages.INTERNAL_SERVER_ERROR,
+			});
+	}
+};
