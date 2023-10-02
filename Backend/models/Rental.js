@@ -90,8 +90,7 @@ const RentalSchema = new Schema(
         contactNo: {
             type: Number,
             required: true,
-            maxlength: 10,
-            minlength: 10
+            maxlength: 10
         },
     
         NICcopy: {
