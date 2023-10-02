@@ -197,3 +197,33 @@ module.exports.getActiveEmployeesService = async () => {
 		throw err;
 	}
 };
+
+//create service for active employee details
+
+module.exports.activeEmployeeService = async (req, res) => {
+	try {
+		const id = req.data._id;
+		const idString = id.toString();
+
+		// Update the isActive field to false and return the updated employee
+		const updatedEmployee = await Employee.findByIdAndUpdate(
+			{ _id: idString },
+			{ isActive: true },
+			{ new: true },
+		);
+
+		if (updatedEmployee) {
+			return {
+				msg: "success",
+				data: updatedEmployee,
+			};
+		} else {
+			return {
+				msg: "fail",
+				data: null,
+			};
+		}
+	} catch (err) {
+		throw err;
+	}
+};
