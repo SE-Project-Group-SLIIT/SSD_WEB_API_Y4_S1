@@ -63,8 +63,9 @@ module.exports.viewEmployeeController = async (req, res) => {
 module.exports.updateEmployeeController = async (req, res) => {
 	try {
 		let employeeResponse = await employeeService.updateEmployeeService(
-			req,
+			req.body,
 		);
+		console.log(employeeResponse);
 		return res.status(200).send({
 			success: true,
 			data: employeeResponse.data,
@@ -89,7 +90,7 @@ module.exports.updateEmployeeController = async (req, res) => {
 module.exports.deleteEmployeeController = async (req, res) => {
 	try {
 		let employeeResponse = await employeeService.deleteEmployeeService(
-			req,
+			req.body,
 		);
 		return res.status(200).send({
 			success: true,
@@ -117,6 +118,78 @@ module.exports.singleEmployeeViewController = async (req, res) => {
 		let employeeResponse =
 			await employeeService.singleEmployeeViewService(req);
 
+		return res.status(200).send({
+			success: true,
+			data: employeeResponse.data,
+			showMessage: false,
+		});
+	} catch (err) {
+		return res
+			.status(
+				err.status || ResponseStatusCodes.INTERNAL_SERVER_ERROR,
+			)
+			.json({
+				success: false,
+				msg:
+					err.msg ||
+					ResponseCommonMessages.INTERNAL_SERVER_ERROR,
+			});
+	}
+};
+
+module.exports.viewInactiveEmployeesController = async (req, res) => {
+	try {
+		let employeeResponse =
+			await employeeService.getInactiveEmployeesService(req);
+		return res.status(200).send({
+			success: true,
+			data: employeeResponse.data,
+			showMessage: false,
+		});
+	} catch (err) {
+		return res
+			.status(
+				err.status || ResponseStatusCodes.INTERNAL_SERVER_ERROR,
+			)
+			.json({
+				success: false,
+				msg:
+					err.msg ||
+					ResponseCommonMessages.INTERNAL_SERVER_ERROR,
+			});
+	}
+};
+
+module.exports.viewActiveEmployeesController = async (req, res) => {
+	try {
+		let employeeResponse =
+			await employeeService.getActiveEmployeesService(req);
+		return res.status(200).send({
+			success: true,
+			data: employeeResponse.data,
+			showMessage: false,
+		});
+	} catch (err) {
+		return res
+			.status(
+				err.status || ResponseStatusCodes.INTERNAL_SERVER_ERROR,
+			)
+			.json({
+				success: false,
+				msg:
+					err.msg ||
+					ResponseCommonMessages.INTERNAL_SERVER_ERROR,
+			});
+	}
+};
+
+//create controller for active employee details
+
+module.exports.activeEmployeeController = async (req, res) => {
+	try {
+		let employeeResponse = await employeeService.activeEmployeeService(
+			req.body,
+		);
 		return res.status(200).send({
 			success: true,
 			data: employeeResponse.data,
