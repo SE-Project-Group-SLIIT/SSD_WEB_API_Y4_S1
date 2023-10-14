@@ -113,6 +113,9 @@ const RentalSchema = new Schema(
         lastPaid: {
             type: Number,
         },
+        email:{
+            type: String,
+        },
     }, {timestamps: true},
 );
 

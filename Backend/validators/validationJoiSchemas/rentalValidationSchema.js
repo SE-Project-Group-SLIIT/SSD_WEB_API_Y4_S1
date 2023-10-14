@@ -21,6 +21,7 @@ const rentalValidationSchema = {
         penaltyCharges: Joi.number(),
         returnDate: Joi.string(),
         lastPaid: Joi.number(),
+        email: Joi.string().email().required(),
     }),
 };
 
