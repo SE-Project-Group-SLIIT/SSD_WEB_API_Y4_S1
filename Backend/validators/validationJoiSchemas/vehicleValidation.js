@@ -8,7 +8,7 @@ const vehicleValidation = {
     Address: Joi.string().min(2).max(100).required(),
     Email: Joi.string().email().required(),
     Date: Joi.date().required(),
-    VehicleID: Joi.string().required(),
+    VehicleID: Joi.string(),
     VehicleRegNo: Joi.string().required(),
     VehicleModel: Joi.string().min(2).max(50).required(),
     VehicleType: Joi.string().min(2).max(50).required(),
@@ -20,7 +20,7 @@ const vehicleValidation = {
     AirC: Joi.string().min(2).max(50).required(),
     NoOfSeats: Joi.number().min(1).required(),
     RatePDay: Joi.number().min(0).required(),
-    YearsRent: Joi.string().min(2).max(50).required(),
+    YearsRent: Joi.number().min(1).required(),
     status: Joi.string().valid("active", "removed").default("active"),
   }),
 

@@ -13,8 +13,6 @@ const employeeManagementValidation = {
 		nic: Joi.string().max(12).required(),
 		dateOfBirth: Joi.date().required(),
 		phoneNumber: Joi.number()
-			// .length(10)
-			// .pattern(/[6-9]{1}[0-9]{9}/)
 			.required(),
 		emailAddress: Joi.string().email().required(),
 		gender: Joi.string().required(),
@@ -23,24 +21,18 @@ const employeeManagementValidation = {
 		isActive: Joi.boolean(),
 	}),
 	updateSchemaValidation: Joi.object().keys({
-		firstName: Joi.string()
-			.alphanum()
-			.min(2)
-			.max(10)
-			.trim(),
+		firstName: Joi.string().alphanum().min(2).max(10).trim(),
 		lastName: Joi.string().alphanum().min(2).max(10).trim(),
 		address: Joi.string().min(2).max(30),
 		nic: Joi.string().max(12),
 		dateOfBirth: Joi.date(),
-		phoneNumber: Joi.number()
-			// .length(10)
-			// .pattern(/[6-9]{1}[0-9]{9}/)
-			,
+		phoneNumber: Joi.number(),
 		emailAddress: Joi.string().email(),
 		gender: Joi.string(),
 		joiningDate: Joi.date(),
 		designation: Joi.string().min(2).max(20),
 		isActive: Joi.boolean(),
+		id: Joi.string(),
 	}),
 };
 

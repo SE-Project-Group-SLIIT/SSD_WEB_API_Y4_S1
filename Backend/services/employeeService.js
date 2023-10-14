@@ -65,42 +65,68 @@ module.exports.viewAllEmployeeService = async (req, res) => {
 
 //create service for update employee details
 
-module.exports.updateEmployeeService = async (req, res) => {
-	try {
-		console.log(req);
-		let id = req.data._id;
-		let idString = id.toString();
-		const {
-			firstName,
-			lastName,
-			address,
-			nic,
-			dateOfBirth,
-			phoneNumber,
-			emailAddress,
-			gender,
-			joiningDate,
-			designation,
-			isActive,
-		} = req.body;
+// module.exports.updateEmployeeService = async (req, res) => {
+// 	try {
+// 		console.log(req);
+// 		let id = req.data._id;
+// 		let idString = id.toString();
+// 		const {
+// 			firstName,
+// 			lastName,
+// 			address,
+// 			nic,
+// 			dateOfBirth,
+// 			phoneNumber,
+// 			emailAddress,
+// 			gender,
+// 			joiningDate,
+// 			designation,
+// 			isActive,
+// 		} = req.body;
 
-		const updateUser = {
-			firstName,
-			lastName,
-			address,
-			nic,
-			dateOfBirth,
-			phoneNumber,
-			emailAddress,
-			gender,
-			joiningDate,
-			designation,
-			isActive,
-		};
-		console.log(updateUser);
-		let response = await Employee.findByIdAndUpdate(
+// 		const updateUser = {
+// 			firstName,
+// 			lastName,
+// 			address,
+// 			nic,
+// 			dateOfBirth,
+// 			phoneNumber,
+// 			emailAddress,
+// 			gender,
+// 			joiningDate,
+// 			designation,
+// 			isActive,
+// 		};
+// 		console.log(updateUser);
+// 		let response = await Employee.findByIdAndUpdate(
+// 			{ _id: idString },
+// 			updateUser,
+// 		);
+// 		if (response) {
+// 			return {
+// 				msg: "success",
+// 				data: response,
+// 			};
+// 		} else {
+// 			return {
+// 				msg: "faild",
+// 				data: response,
+// 			};
+// 		}
+// 	} catch (err) {
+// 		throw err;
+// 	}
+// };
+
+module.exports.updateEmployeeService = async (requestData) => {
+	try {
+		console.log(">>>>Id", requestData);
+		const id = requestData.id;
+		const idString = id.toString();
+		const response = await Employee.findByIdAndUpdate(
 			{ _id: idString },
-			updateUser,
+			requestData,
+			{ new: true },
 		);
 		if (response) {
 			return {
@@ -109,7 +135,7 @@ module.exports.updateEmployeeService = async (req, res) => {
 			};
 		} else {
 			return {
-				msg: "faild",
+				msg: "failed",
 				data: response,
 			};
 		}

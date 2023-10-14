@@ -10,7 +10,7 @@ var appController = require("./app");
 
 // Loading environment variables
 require("dotenv").config({
-	path: path.resolve(__dirname, "./config/.env"),
+	path: path.resolve(__dirname, ".env"),
 });
 
 // Constants

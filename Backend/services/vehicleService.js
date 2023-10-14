@@ -1,19 +1,31 @@
 const Vehicle = require("../models/Vehicle");
+const { v4: uuidv4 } = require('uuid');
 
-// Create service for adding a new vehicle
+
 module.exports.addVehicleService = async (requestData) => {
-  try {
-    const newVehicle = new Vehicle(requestData);
-    const response = await newVehicle.save();
-    console.log("response",response);
-    return {
-      msg: "Vehicle Added",
-      data: response,
-    };
-  } catch (error) {
-    throw error;
-  }
-};
+    try {
+      // Generate a unique vehicleID using uuidv4
+      const vehicleID = uuidv4();
+  
+
+
+      // Add the generated vehicleID to the requestData
+      requestData.VehicleID = vehicleID;
+  
+      console.log(">>>reqdata",requestData);
+      const newVehicle = new Vehicle(requestData);
+      const response = await newVehicle.save();
+      console.log("response", response);
+      return {
+        msg: "Vehicle Added",
+        data: response,
+      };
+    } catch (error) {
+        console.log("err",error);
+      throw error;
+    }
+  };
+  
 
 // Create service for viewing all vehicle details
 module.exports.viewAllVehiclesService = async () => {

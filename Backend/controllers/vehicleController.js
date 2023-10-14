@@ -44,7 +44,7 @@ module.exports.viewAllVehiclesController = async (req, res) => {
 
 // Create controller for updating vehicle details
 module.exports.updateVehicleController = async (req, res) => {
-    console.log(">>>>request",req);
+  
   try {
     const vehicleResponse = await vehicleService.updateVehicleService(req.body);
     return res.status(200).json({
